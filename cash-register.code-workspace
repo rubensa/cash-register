@@ -1,7 +1,13 @@
 {
   "folders": [
     {
+      "path": "cash-register-back"
+    },
+    {
       "path": "."
     }
-  ]
+  ],
+  "settings": {
+    "java.configuration.updateBuildConfiguration": "automatic"
+  }
 }
