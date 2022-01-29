@@ -5,12 +5,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.math.BigDecimal;
 
 import org.eu.rubensa.cashregister.model.Product;
+import org.eu.rubensa.cashregister.repository.ProductRepositoryTest.TestConfig;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.test.context.ContextConfiguration;
 
 @DataJpaTest
+@ContextConfiguration(classes = { TestConfig.class })
 public class ProductRepositoryTest {
   @Autowired
   protected TestEntityManager entityManager;
@@ -128,5 +131,21 @@ public class ProductRepositoryTest {
     repository.deleteAll();
 
     assertThat(repository.findAll()).isEmpty();
+  }
+
+  /**
+   * A nested @Configuration class wild be used instead of the application’s
+   * primary configuration.
+   * <p>
+   * Unlike a nested @Configuration class, which would be used instead of your
+   * application’s primary configuration, a nested @TestConfiguration class is
+   * used in addition to your application’s primary configuration.
+   */
+  // Using full qualified class names (otherwise compilation fail with maven).
+  // See: https://bugs.openjdk.java.net/browse/JDK-8056066
+  @org.springframework.context.annotation.Configuration
+  @org.springframework.data.jpa.repository.config.EnableJpaRepositories(considerNestedRepositories = true, basePackageClasses = ProductRepository.class)
+  @org.springframework.boot.autoconfigure.domain.EntityScan(basePackageClasses = Product.class)
+  public static class TestConfig {
   }
 }
