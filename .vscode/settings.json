@@ -2,5 +2,6 @@
   // Configure glob patterns for excluding files and folders.
   "files.exclude": {
     "cash-register-back": true,
+    "cash-register-cli": true,
   }
 }

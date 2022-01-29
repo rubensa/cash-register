@@ -4,6 +4,9 @@
       "path": "cash-register-back"
     },
     {
+      "path": "cash-register-cli"
+    },
+    {
       "path": "."
     }
   ],

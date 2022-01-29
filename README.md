@@ -45,6 +45,8 @@ This project contains a [VS Code multi-root workspace](https://code.visualstudio
 
     ├── cash-register-back            <- The store cash register back end
     │
+    ├── cash-register-cli             <- The store cash register CLI
+    │
     ├── .devcontainer                 <- VSCode Remote Development configuration
     │
     ├── .vscode                       <- VSCode configuration
