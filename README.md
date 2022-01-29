@@ -54,3 +54,35 @@ This project contains a [VS Code multi-root workspace](https://code.visualstudio
     ├── cash-register.code-workspace  <- VSCode workspace configuration file
     ├── LICENSE                       <- The License file
     └── README.md                     <- The README for developers using this project
+
+### Building cash-register-back
+Open a *cash-register-back* in VSCode Integrated Terminal and run the command
+```shell
+./mvnw clean package
+```
+
+### Installing cash-register-back in local maven repository
+Open a *cash-register-back* in VSCode Integrated Terminal and run the command
+```shell
+./mvnw install
+```
+
+### Running cash-register-cli without building the jar
+Open a *ccash-register-cli* in VSCode Integrated Terminal and run the command
+```shell
+./mvnw spring-boot:run
+```
+> **_NOTE:_** Make sure *cash-register-back* is built and istalled on local maven repository before building the *cash-register-cli*
+
+### Building cash-register-cli
+Open a *cash-register-cli* in VSCode Integrated Terminal and run the command
+```shell
+./mvnw clean package
+```
+> **_NOTE:_** Make sure *cash-register-back* is built and istalled on local maven repository before building the *cash-register-cli*
+
+### Running cash-register-cli
+Open a *cash-register-cli* in VSCode Integrated Terminal and run the command
+```shell
+java -jar target/cash-register-cli-0.0.1-SNAPSHOT.jar
+```
