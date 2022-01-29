@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.eu.rubensa.cashregister.model.Product;
+import org.eu.rubensa.cashregister.provider.ProductCodeValueProvider;
 import org.eu.rubensa.cashregister.repository.ProductRepository;
 import org.jline.utils.AttributedStringBuilder;
 import org.jline.utils.AttributedStyle;
@@ -29,7 +30,7 @@ public class ProductCommands {
 
   @ShellMethod("Product detail")
   public String product(
-      @ShellOption(help = "Product code") String code) {
+      @ShellOption(help = "Product code", valueProvider = ProductCodeValueProvider.class) String code) {
     Optional<Product> product = productRepository.findById(code.toUpperCase());
     if (product.isEmpty()) {
       String message = String.format("Product: %s NOT FOUND!", code);
