@@ -1,0 +1,151 @@
+image: rubensa/ubuntu-tini-dev:gitpod
+
+tasks:
+  - name: Vscode Settings
+    init: |
+      mkdir -p "$PWD/.vscode";
+      cat << 'EOF' > "$PWD/.vscode/settings.json"
+      {
+        // Configure spring-boot language server runtime
+        "spring-boot.ls.java.home": "/opt/sdkman/candidates/java/11.0",
+        // Configure Maven
+        "maven.executable.preferMavenWrapper": true,
+        // Configure Java available runtimes
+        "java.configuration.runtimes": [
+          {
+            "name": "JavaSE-11",
+            "path": "/opt/sdkman/candidates/java/11.0",
+          },
+        ],
+        // Exclude folders from import via glob patterns.
+        "java.import.exclusions": [
+          "**/node_modules/**",
+          "**/.metadata/**",
+          "**/archetype-resources/**",
+          "**/META-INF/maven/**",
+          "**/NBG-Server/**",
+        ],
+        // Defines a list of static members or types with static members.
+        "java.completion.favoriteStaticMembers": [
+          // Default values
+          "org.junit.Assert.*",
+          "org.junit.Assume.*",
+          "org.junit.jupiter.api.Assertions.*",
+          "org.junit.jupiter.api.Assumptions.*",
+          "org.junit.jupiter.api.DynamicContainer.*",
+          "org.junit.jupiter.api.DynamicTest.*",
+          "org.mockito.Mockito.*",
+          "org.mockito.ArgumentMatchers.*",
+          "org.mockito.Answers.*",
+          // Extra
+          "org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*",
+          "org.springframework.test.web.servlet.result.MockMvcResultMatchers.*",
+          "org.assertj.core.api.Assertions.*",
+          "org.hamcrest.CoreMatchers.*",
+          "org.hamcrest.Matchers.*",
+          "io.restassured.RestAssured.*",
+        ],
+        // Configure glob patterns of file paths to exclude from file watching.
+        "files.watcherExclude": {
+          // Default values
+          "**/.git/objects/**": true,
+          "**/.git/subtree-cache/**": true,
+          "**/node_modules/**": true,
+          "**/.hg/store/**": true,
+          // Extra
+          "**/tmp/**": true,
+          "**/bower_components/**": true,
+          "**/dist/**": true,
+          "**/coverage/**": true,
+        },
+        // Configure glob patterns for excluding files and folders.
+        "files.exclude": {
+          // Default values
+          "**/.git": true,
+          "**/.svn": true,
+          "**/.hg": true,
+          "**/CVS": true,
+          "**/.DS_Store": true,
+          // Extra
+          "**/tmp/**": true,
+          "**/.gradle": true,
+          "**/.idea": true,
+          "**/.mvn": true,
+          "**/.classpath": true,
+          "**/.project": true,
+          "**/.settings": true,
+          "**/.factorypath": true,
+          // Modules
+          "cash-register-back": true,
+          "cash-register-cli": true,
+        },
+        // Configure glob patterns for excluding files and folders in fulltext searches and quick open.
+        // Inherits all glob patterns from the `files.exclude` setting.
+        "search.exclude": {
+          // Default values
+          "**/node_modules": true,
+          "**/bower_components": true,
+          "**/*.code-search": true,
+          // Extra
+          "**/target/**": true,
+          "**/dist/**": true,
+          "**/coverage/**": true,
+        },
+        // Ensure VS Code uses the right shell for terminals and tasks.
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "terminal.integrated.profiles.linux": {
+          "bash": {
+            "path": "/bin/bash",
+            "args": [
+              // Run interactive bash shell in VSCode integrated terminal
+              "-i",
+            ]
+          }
+        },
+        // Disable Minimap
+        "editor.minimap.enabled": false,
+        // Custom local history path
+        "local-history.path": "/tmp",
+        // Show control characters
+        "editor.renderControlCharacters": true,
+        // Do not use current file indentation
+        "editor.detectIndentation": false,
+        // Use 2 characters for tabs
+        "editor.tabSize": 2,
+        // Format code on paste
+        "editor.formatOnPaste": true,
+        // Format code on file save
+        "editor.formatOnSave": true,
+        // Format code while typing
+        "editor.formatOnType": true,
+        // Disable automatic port forwarding
+        "remote.autoForwardPorts": false,
+        // Disable preview editor
+        "workbench.editor.enablePreview": false,
+        // Controls the limit of git submodules detected
+        "git.detectSubmodulesLimit": 20,
+      }
+      EOF
+      exit
+  - name: Install Java
+    init: /bin/bash -i -c "export JAVA_VERSION=11.0; export JAVA_INSTALL_VERSION=\$(sdk list java | grep -o \"\${JAVA_VERSION}\\.[0-9\\.]*-tem\" | head -1); sdk install java \$JAVA_INSTALL_VERSION || true; ln -s /opt/sdkman/candidates/java/\$JAVA_INSTALL_VERSION /opt/sdkman/candidates/java/\$JAVA_VERSION;"
+  - name: Configure Maven Bash Completion
+    init: /bin/bash -i -c "curl -sSL https://raw.github.com/juven/maven-bash-completion/master/bash_completion.bash >> ~/.bashrc;"
+
+vscode:
+  extensions:
+    # GIT support
+    - mhutchie.git-graph
+    - eamodio.gitlens
+    # Spring boot support
+    - pivotal.vscode-boot-dev-pack
+    # Java Support
+    - vscjava.vscode-java-pack
+    # Lombok annotations support
+    - GabrielBB.vscode-lombok
+    # XML Support
+    - redhat.vscode-xml
+    # Native-ASCII Converter
+    - cwan.native-ascii-converter
+    # draw.io
+    - hediet.vscode-drawio
