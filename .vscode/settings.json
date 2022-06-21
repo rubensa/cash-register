@@ -68,6 +68,7 @@
     "**/.project": true,
     "**/.settings": true,
     "**/.factorypath": true,
+    // Modules
     "cash-register-back": true,
     "cash-register-cli": true,
   },
