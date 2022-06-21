@@ -1,0 +1,25 @@
+image: rubensa/ubuntu-tini-dev:gitpod
+
+tasks:
+  - name: Install Java
+    init: /bin/bash -i -c "export JAVA_VERSION=11.0; export JAVA_INSTALL_VERSION=\$(sdk list java | grep -o \"\${JAVA_VERSION}\\.[0-9\\.]*-tem\" | head -1); sdk install java \$JAVA_INSTALL_VERSION || true; ln -s /opt/sdkman/candidates/java/\$JAVA_INSTALL_VERSION /opt/sdkman/candidates/java/\$JAVA_VERSION;"
+  - name: Configure Maven Bash Completion
+    init: /bin/bash -i -c "curl -sSL https://raw.github.com/juven/maven-bash-completion/master/bash_completion.bash >> ~/.bashrc;"
+
+vscode:
+  extensions:
+    # GIT support
+    - mhutchie.git-graph
+    - eamodio.gitlens
+    # Spring boot support
+    - pivotal.vscode-boot-dev-pack
+    # Java Support
+    - vscjava.vscode-java-pack
+    # Lombok annotations support
+    - GabrielBB.vscode-lombok
+    # XML Support
+    - redhat.vscode-xml
+    # Native-ASCII Converter
+    - cwan.native-ascii-converter
+    # draw.io
+    - hediet.vscode-drawio

@@ -1,3 +1,5 @@
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#github.com/rubensa/cash-register/tree/gitpod-config)
+
 # Cash Register
 
 This repo is an exercise to manage a store cash register.
